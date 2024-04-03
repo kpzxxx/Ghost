@@ -13,9 +13,10 @@ class EmailServiceWrapper {
             return;
         }
 
-        const {EmailService, EmailController, EmailRenderer, SendingService, BatchSendingService, EmailSegmenter, MailgunEmailProvider} = require('@tryghost/email-service');
+        const {EmailService, EmailController, EmailRenderer, SendingService, BatchSendingService, EmailSegmenter, MailgunEmailProvider, AliyunEmailProvider} = require('@tryghost/email-service');
         const {Post, Newsletter, Email, EmailBatch, EmailRecipient, Member} = require('../../models');
-        const MailgunClient = require('@tryghost/mailgun-client');
+        // const MailgunClient = require('@tryghost/mailgun-client');
+        const AlicloudClient = require('@tryghost/alicloud-client');
         const configService = require('../../../shared/config');
         const settingsCache = require('../../../shared/settings-cache');
         const settingsHelpers = require('../settings-helpers');
@@ -26,7 +27,6 @@ class EmailServiceWrapper {
         const membersRepository = membersService.api.members;
         const limitService = require('../limits');
         const labs = require('../../../shared/labs');
-        const emailAddressService = require('../email-address');
 
         const mobiledocLib = require('../../lib/mobiledoc');
         const lexicalLib = require('../../lib/lexical');
@@ -46,12 +46,20 @@ class EmailServiceWrapper {
         };
 
         // Mailgun client instance for email provider
-        const mailgunClient = new MailgunClient({
+        // const mailgunClient = new MailgunClient({
+        //     config: configService, settings: settingsCache
+        // });
+        const aliCloudClient = new AlicloudClient({
             config: configService, settings: settingsCache
         });
 
-        const mailgunEmailProvider = new MailgunEmailProvider({
-            mailgunClient,
+
+        // const mailgunEmailProvider = new MailgunEmailProvider({
+        //     mailgunClient,
+        //     errorHandler
+        // });
+        const aliyunEmailProvider = new AliyunEmailProvider({
+            aliCloudClient,
             errorHandler
         });
 
@@ -71,13 +79,13 @@ class EmailServiceWrapper {
             memberAttributionService: memberAttribution.service,
             audienceFeedbackService: audienceFeedback.service,
             outboundLinkTagger: memberAttribution.outboundLinkTagger,
-            emailAddressService: emailAddressService.service,
             labs,
             models: {Post}
         });
 
         const sendingService = new SendingService({
-            emailProvider: mailgunEmailProvider,
+            // emailProvider: mailgunEmailProvider,
+            emailProvider: aliyunEmailProvider,
             emailRenderer
         });
 

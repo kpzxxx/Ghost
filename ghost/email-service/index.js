@@ -7,5 +7,6 @@ module.exports = {
     BatchSendingService: require('./lib/BatchSendingService'),
     EmailEventProcessor: require('./lib/EmailEventProcessor'),
     EmailEventStorage: require('./lib/EmailEventStorage'),
-    MailgunEmailProvider: require('./lib/MailgunEmailProvider')
+    MailgunEmailProvider: require('./lib/MailgunEmailProvider'),
+    AlicloudEmailProvider: require('./lib/AlicloudEmailProvider')
 };
