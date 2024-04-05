@@ -1,1 +1,1 @@
-module.exports = require('./lib/AlicloudClient');
+module.exports = require('./lib/AliCloudClient');

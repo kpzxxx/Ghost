@@ -5,7 +5,7 @@ const metrics = require('@tryghost/metrics');
 const errors = require('@tryghost/errors');
 const Dm20151123 = require('@alicloud/dm20151123');
 
-module.exports = class AlicloudClient {
+module.exports = class AliCloudClient {
     #config;
     #settings;
 

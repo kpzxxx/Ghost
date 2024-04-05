@@ -13,10 +13,10 @@ class EmailServiceWrapper {
             return;
         }
 
-        const {EmailService, EmailController, EmailRenderer, SendingService, BatchSendingService, EmailSegmenter,  AlicloudEmailProvider} = require('@tryghost/email-service');
+        const {EmailService, EmailController, EmailRenderer, SendingService, BatchSendingService, EmailSegmenter,  AliCloudEmailProvider} = require('@tryghost/email-service');
         const {Post, Newsletter, Email, EmailBatch, EmailRecipient, Member} = require('../../models');
         // const MailgunClient = require('@tryghost/mailgun-client');
-        const AlicloudClient = require('@tryghost/alicloud-client');
+        const AliCloudClient = require('@tryghost/alicloud-client');
         const configService = require('../../../shared/config');
         const settingsCache = require('../../../shared/settings-cache');
         const settingsHelpers = require('../settings-helpers');
@@ -49,7 +49,7 @@ class EmailServiceWrapper {
         // const mailgunClient = new MailgunClient({
         //     config: configService, settings: settingsCache
         // });
-        const aliCloudClient = new AlicloudClient({
+        const aliCloudClient = new AliCloudClient({
             config: configService, settings: settingsCache
         });
 
@@ -58,7 +58,7 @@ class EmailServiceWrapper {
         //     mailgunClient,
         //     errorHandler
         // });
-        const aliyunEmailProvider = new AliyunEmailProvider({
+        const aliCloudEmailProvider = new AliCloudEmailProvider({
             aliCloudClient,
             errorHandler
         });
@@ -85,7 +85,7 @@ class EmailServiceWrapper {
 
         const sendingService = new SendingService({
             // emailProvider: mailgunEmailProvider,
-            emailProvider: aliyunEmailProvider,
+            emailProvider: aliCloudEmailProvider,
             emailRenderer
         });
 

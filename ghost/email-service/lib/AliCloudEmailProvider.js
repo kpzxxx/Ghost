@@ -26,20 +26,20 @@ const debug = require('@tryghost/debug')('email-service:alicloud-provider-servic
  * @prop {string} id
  */
 
-class AlicloudEmailProvider {
-    #mailgunClient;
+class AliCloudEmailProvider {
+    #aliCloudClient;
     #errorHandler;
 
     /**
      * @param {object} dependencies
-     * @param {import('@tryghost/mailgun-client/lib/MailgunClient')} dependencies.mailgunClient - mailgun client to send emails
+     * @param {import('@tryghost/alicloud-client/lib/AlicloudClient')} dependencies.aliCloudClient - mailgun client to send emails
      * @param {Function} [dependencies.errorHandler] - custom error handler for logging exceptions
      */
     constructor({
-        mailgunClient,
+        aliCloudClient,
         errorHandler
     }) {
-        this.#mailgunClient = mailgunClient;
+        this.#aliCloudClient = aliCloudClient;
         this.#errorHandler = errorHandler;
     }
 
@@ -126,7 +126,7 @@ class AlicloudEmailProvider {
 
             // send the email using Mailgun
             // uses empty replacements array as we've already replaced all tokens with Mailgun variables
-            const response = await this.#mailgunClient.send(
+            const response = await this.#aliCloudClient.send(
                 messageData,
                 recipientData,
                 []
@@ -170,8 +170,8 @@ class AlicloudEmailProvider {
     }
 
     getMaximumRecipients() {
-        return this.#mailgunClient.getBatchSize();
+        return this.#aliCloudClient.getBatchSize();
     }
 }
 
-module.exports = MailgunEmailProvider;
+module.exports = AliCloudEmailProvider;
