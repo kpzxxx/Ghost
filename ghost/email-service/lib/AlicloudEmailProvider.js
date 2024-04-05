@@ -26,7 +26,7 @@ const debug = require('@tryghost/debug')('email-service:alicloud-provider-servic
  * @prop {string} id
  */
 
-class MailgunEmailProvider {
+class AlicloudEmailProvider {
     #mailgunClient;
     #errorHandler;
 
